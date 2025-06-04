@@ -2,10 +2,14 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+terraform.tfvars
 # C extensions
 *.so
-
+*.terraform
+*.terraform.lock.hcl
+terraform.tfstate
+*.tfstate
+*.tfstate.*
 # Distribution / packaging
 .Python
 build/
@@ -130,6 +134,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv/
 env/
 venv/
 ENV/

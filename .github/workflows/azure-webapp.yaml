@@ -1,0 +1,35 @@
+name: AppServiceApp Basic Deployment
+
+on:
+  workflow_dispatch:
+ # push:
+   # branches:
+     # - home
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Zip static files
+        run: |
+          cd frontend 
+          zip -r ../app.zip .
+          cd ..
+
+      - name: List files in ZIP
+        run: unzip -l app.zip
+
+      - name: Uploud static files to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          package: app.zip
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+
+#test
